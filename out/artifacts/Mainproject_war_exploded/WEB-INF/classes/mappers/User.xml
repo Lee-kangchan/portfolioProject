@@ -4,5 +4,11 @@
     <select id="getUser" resultType="userVO">
         SELECT id,password from mydb.user;
     </select>
-
+    <insert id="insertUser">
+        Insert into user(id, password, name) values (#{email} , #{password} , ${name})
+    </insert>
+    <select id="checkUser" parameterType="String" resultType="userVO">
+        SELECT id,password FROM mydb.user
+        where id=#{id};
+    </select>
 </mapper>

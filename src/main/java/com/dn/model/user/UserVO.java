@@ -13,7 +13,9 @@ import java.util.Date;
 @ToString
 public class UserVO {
     private String id;
+
     private String password;
+    private String name;
     private String intro;
     private Date secssion;
     private Date deadline;

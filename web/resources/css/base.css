@@ -1,0 +1,16 @@
+ul{
+    margin-top:40px;
+    width: 100%;
+}
+ul li{
+ padding-left:15px ;
+}
+a{
+    font-size: x-large;
+}
+.card-body{
+    margin-bottom: 20px;
+}
+.right{
+    padding-right: 15px;
+}

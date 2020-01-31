@@ -1,0 +1,27 @@
+
+.header{
+    margin: 5%;
+    text-align: right;
+}
+.Textleft{
+    text-align: left;
+
+}
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+.list{
+    list-style-type: none;
+    padding-right: 1%;
+}
+.nav{
+    width:50%
+}
+.card{
+    border: solid thin black;
+    padding: 3%;
+    margin-bottom: 3%;
+}
