@@ -1,5 +1,6 @@
 package com.dn.controller;
 
+import com.dn.model.theme.ThemeService;
 import com.dn.model.user.UserService;
 import com.dn.model.user.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class Controll {
     @Autowired
     UserService userService;
 
+    @Autowired
+    ThemeService themeService;
 
     //메인 페이지
     @GetMapping(value = "/")
@@ -34,6 +37,7 @@ public class Controll {
 
     //로그인 처리
     @PostMapping(value ="/login")
+
     public String login(Model model, HttpSession session, @RequestParam("email")String id, @RequestParam("password") String password){
 
         for(UserVO t : userService.getUser()){
@@ -59,10 +63,15 @@ public class Controll {
     @PostMapping(value="/sign")
     public HashMap<String, Object > sign(@RequestBody HashMap<String, Object> params){
 
+        HashMap<String,Object> theme = new HashMap<>() ;
         HashMap<String,Object> map = params;
+
         log.info(params.toString());
         log.info("Post Sign");
+        map.put("num",1);
+        map.put("theme_check",1);
         userService.insertUser(map);
+        themeService.insertTheme(map);
         return map ;
     }
     @PutMapping(value = "/sign/{id}")
@@ -70,16 +79,18 @@ public class Controll {
 
         log.info(id);
         UserVO vo = userService.checkUser(id+".com");
-
+        UserVO to = userService.checkUser(id);
         if(vo!=null){
             log.info("NO");
             return "NO";
 
         }
-        else{
+        if(to!=null){
+            log.info("NO");
+            return "NO";
+        }
             log.info("YES");
             return "YES";
-        }
     }
 
 }

@@ -25,12 +25,12 @@
 
 
     <!-- Custom styles for this template -->
+    <link href="${pageContext.request.contextPath}/resources/css/login.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/theme1.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -58,7 +58,7 @@
                 <input type="text" placeholder="Search" Class="form-control">
             </form>
             <ul class="nav navbar-nav">
-                <li class="active" id="themeAjax"><a href="">테마</a></li>
+                <li class="active" id="themeAjax"><a>테마</a></li>
                 <li ><a href="#">문의</a>
                 <li><a href="#about"></a></li>
             </ul>
@@ -83,7 +83,7 @@
     </div>
 </nav>
 
-<div class="container">
+<div class="container" id="main">
 
     <div class="row">
         <div class="col col-lg-2">
@@ -184,36 +184,82 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 <script>
+    let mainpage ;
     $('#themeAjax').click(function(){
         $.ajax({
             type:"GET",
             url:"/theme",
-            data:"null",
             dataType:"json",
             success:function(data){	//data : checkSignup에서 넘겨준 결과값
+                alert("hello")
                 var count =0;
-                for(var i; i<data.length ; i++){
-                    var theme =   "    <h2>theme shop</h2>\n" +
-                        "    <span ><hr></span>\n" +
+                let theme ="\n" +
+                    "    <h2>theme shop</h2>\n" +
+                    "    <span ><hr></span>"
+
+                console.log(data)
+                for(i=0; i<data.length ; i++){
+                    console.log(data[i].name)
+
+                     theme +=
                         "    <div class=\"theme\"style=\"text-align: center; border : solid thin silver\">\n" +
                         "\n" +
-                        "        <img src=\"" +data[i].img +"\" alt=\"테마\" width=\"100%\" >\n" +
+                        "        <img src=\" ${pageContext.request.contextPath}" +data[i].img +" \"  alt=\"테마\" width=\"100%\" >\n" +
                         "        <div style=\"text-align: left;\">\n" +
-                        "            <h2 >+data[i].name +</h2>\n" +
+                        "            <h2 >"+data[i].name +"</h2>\n" +
                         "            <p> "+data[i].content +"</p>\n" +
                         "        </div>\n" +
                         "\n" +
                         "\n" +
-                        "        <a class=\"glyphicon glyphicon-plus btn-default themeplus\" style=\"text-align: right;\"> </a>\n"
+                        "        <a class=\"glyphicon glyphicon-plus btn-default themeplus\" id=\""+data[i].num+"\" style=\"text-align: right;\"> </a>\n"+
+                        "</div>";
                 }
-                $('.container').children().remove();
-                $('.container').html(theme);
+                mainpage = $('#main').children();
+                $('#main').children().remove();
+                $('#main').html(theme);
 
+                $(".themeplus").click(function(){
+                    $.ajax({
+                        type:"post",
+                        url:"/theme/"+$(this).attr("id"),
+                        dataType: "text",
+                        success:function (data)
+                        {
+                            if(data=="/login"){
+                                let login = "<form class=\"form-signin\" action=\"/login\" method=\"post\">\n" +
+                                    "        <h2 class=\"form-signin-heading\">로그인</h2>\n" +
+                                    "        <input type=\"email\" id=\"inputEmail\" class=\"form-control\" name=\"email\" placeholder=\"Email address\" required autofocus>\n" +
+                                    "        <input type=\"password\" id=\"inputPassword\" class=\"form-control\" name = \"password\" placeholder=\"Password\" required>\n" +
+                                    "        <button class=\"btn btn-lg btn-success btn-block\" type=\"submit\">로그인</button>\n" +
+                                    "\n" +
+                                    "    </form>\n" +
+                                    "    <form class=\"form-signin\" action=\"/sign\">\n" +
+                                    "    <button type=\"submit\" class=\"btn btn-lg btn-primary btn-block\" >회원가입</button>\n" +
+                                    "    </form>"
+
+
+                                $('#main').children().remove();
+                                $('#main').html(login);
+                            }
+                            else if(data=="already"){
+                                alert("이미 존재하는 파일입니다.");
+                            }
+                            else{
+                                alert("추가되었습니다.")
+                                $('#main').children().remove();
+                                $('#main').html(mainpage);
+                            }
+                        },
+                        error:function () {
+
+                        }
+                    })
+                })
             }
         })
     })
+
 </script>
 </html>

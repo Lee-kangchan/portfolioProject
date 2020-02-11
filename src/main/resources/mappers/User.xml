@@ -5,10 +5,27 @@
         SELECT id,password from mydb.user;
     </select>
     <insert id="insertUser">
-        Insert into user(id, password, name) values (#{email} , #{password} , ${name})
+        Insert into user(id, password, name) values (#{email} , #{password} , #{name})
     </insert>
     <select id="checkUser" parameterType="String" resultType="userVO">
         SELECT id,password FROM mydb.user
         where id=#{id};
     </select>
+    <select id="informationUser" parameterType="String" resultType="userVO">
+        SELECT user.name, intro, html, user.img from user
+       join theme_store
+       on theme_store.user_id = id
+       join theme
+       on theme.num = theme_store.theme_num
+        where id = #{id}
+        and theme_store.theme_check = 1;
+    </select>
+    <update id="updateUser">
+        update user
+        set name = #{name}
+        , intro = #{intro}
+        , password = #{password}
+        , img = #{img}
+        where id=#{id};
+    </update>
 </mapper>

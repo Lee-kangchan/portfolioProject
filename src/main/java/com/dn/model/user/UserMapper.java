@@ -8,4 +8,6 @@ public interface UserMapper {
     List<UserVO> getUser();
     void insertUser(HashMap vo);
     UserVO checkUser(String id);
+    UserVO informationUser(String id);
+    void updateUser(HashMap<String, Object> vo);
 }

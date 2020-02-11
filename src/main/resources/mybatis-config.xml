@@ -19,6 +19,7 @@
 
         <typeAliases>
             <typeAlias type="com.dn.model.user.UserVO" alias="userVO"/>
-            <typeAlias type="com.dn.model.theme.ThemeVO " alias="themeVO"/>
+            <typeAlias type="com.dn.model.theme.ThemeVO" alias="themeVO"/>
+            <typeAlias type="com.dn.model.portfolio.PortfolioVO" alias="portfolioVO"/>
         </typeAliases>
 </configuration>

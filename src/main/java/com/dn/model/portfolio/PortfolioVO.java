@@ -1,21 +1,23 @@
-package com.dn.model.theme;
+package com.dn.model.portfolio;
+
 
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
 @Data
+@Setter
+@Getter
 @ToString
-public class ThemeVO {
+public class PortfolioVO {
     private int num;
+    private int recommend;
+    private int lookup;
     private String name;
     private String content;
-    private String img;
-    private String html;
-    private int theme_check;
+    private String descript;
     private String user_id;
-    private int theme_num;
+
+
 }

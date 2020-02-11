@@ -31,4 +31,13 @@ public class UserServiceImpl implements UserService {
         return vo;
     }
 
+    @Override
+    public UserVO informationUser(String id) {
+        UserVO vo = userDAO.informationUser(id);
+        return vo;
+    }
+    public void updateUser(HashMap<String, Object> vo){
+        userDAO.updateUser(vo);
+    }
+
 }

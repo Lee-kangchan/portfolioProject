@@ -8,4 +8,6 @@ public interface UserService {
     public List<UserVO> getUser();
     public void insertUser(HashMap vo);
     public UserVO checkUser(String id);
+    public UserVO informationUser(String id);
+    public void updateUser(HashMap<String, Object> vo);
 }

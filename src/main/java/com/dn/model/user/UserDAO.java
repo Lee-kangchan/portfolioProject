@@ -30,5 +30,13 @@ public class UserDAO {
         UserVO userVO = mapper.checkUser(id);
         return userVO;
     }
-
+    public UserVO informationUser(String id){
+        UserMapper mapper = mybatis.getMapper(UserMapper.class);
+        UserVO userVO = mapper.informationUser(id);
+        return userVO;
+    }
+    public void updateUser(HashMap<String,Object> vo){
+        UserMapper mapper = mybatis.getMapper(UserMapper.class);
+        mapper.updateUser(vo);
+    }
 }

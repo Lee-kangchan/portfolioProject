@@ -20,5 +20,6 @@ public class UserVO {
     private Date secssion;
     private Date deadline;
     private int notOpen;
+    private String html;
 
 }
